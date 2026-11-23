@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#06111a">
+<meta name="description" content="Инвестиционное предложение ООО «Иван Калита»: финансирование оборотного капитала в сфере грузовой экспедиции.">
+<title>ООО «Иван Калита» — инвестиционное предложение</title>
+<style>
+:root{
+ --bg:#050f18;--ink:#f3f8fb;--muted:#a3b7c6;--dim:#7f95a5;--line:rgba(255,255,255,.13);
+ --mint:#a8f2d3;--cyan:#8edfff;--blue:#75aaff;--g:1;
+ --shadow:0 30px 80px rgba(0,0,0,.35);
+ --safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;overflow-x:hidden;background:linear-gradient(180deg,#07131c,#0a1823 50%,#07131c)}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit}
+@keyframes float{to{transform:translate3d(55px,-35px,0) scale(1.12)}}
+.wrap{width:min(1180px,calc(100% - 44px));margin:auto}
+
+/* ---------- Cards ---------- */
+.card{position:relative;background:#0f202d;border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+/* ---------- Nav ---------- */
+header{position:sticky;top:0;z-index:30;padding-top:calc(14px + var(--safe-t))}
+.nav{height:64px;border-radius:18px;padding:0 14px 0 18px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:.02em;white-space:nowrap}
+.brand small{display:block;font-size:9px;color:#8fa5b3;letter-spacing:.16em;margin-top:2px;font-weight:600}
+.mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(145deg,#a9e6cf,#5fa9c6);display:grid;place-items:center;color:#07151d;font-weight:900;box-shadow:0 0 25px rgba(142,223,255,.3),inset 0 1px 0 rgba(255,255,255,.7)}
+.navlinks{display:flex;gap:2px;font-size:13px}
+.navlinks a{padding:8px 10px;border-radius:12px;color:#bccdd8;transition:.2s;white-space:nowrap}
+.navlinks a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.navlinks a.active{color:#fff;background:rgba(168,242,211,.13);box-shadow:inset 0 0 0 1px rgba(168,242,211,.25)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:15px;padding:14px 22px;font-weight:700;font-size:14px;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.primary{background:linear-gradient(120deg,#a9e6cf,#86cbe6);color:#061620;box-shadow:0 10px 34px rgba(116,219,206,.22),inset 0 1px 0 rgba(255,255,255,.7)}
+.secondary{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#eef6fb;box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+.btn:hover{transform:none}.primary:hover{box-shadow:0 16px 40px rgba(116,219,206,.3)}.secondary:hover{background:rgba(255,255,255,.12)}
+.navcta{padding:11px 16px;font-size:13px}
+
+/* ---------- Type ---------- */
+.kicker{color:var(--mint);font-size:11px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}
+h1{font-size:clamp(40px,5.6vw,74px);line-height:1.02;letter-spacing:-.05em;margin:20px 0 22px;font-weight:700}
+h1 span{background:linear-gradient(100deg,#fff 5%,#b7f3dc 52%,#8edfff);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2{font-size:clamp(30px,4vw,48px);line-height:1.06;letter-spacing:-.05em;margin:12px 0 14px;font-weight:750}
+h3{margin:0;font-size:18px;letter-spacing:-.02em}
+.sub{color:var(--muted);line-height:1.7;font-size:16px;margin:0}
+.note{color:var(--dim);font-size:12.5px;line-height:1.65;margin:16px 0 0;max-width:900px}
+section{padding:84px 0}
+.head{max-width:760px;margin-bottom:34px}
+
+/* ---------- Hero ---------- */
+.hero{padding:84px 0 70px;display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:center;min-height:660px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--mint);font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint)}
+.lead{max-width:600px;color:#c3d2dc;font-size:18px;line-height:1.65;margin:0 0 28px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.params{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.param{padding:14px 18px;border-radius:18px;min-width:150px}
+.param small{display:block;color:#9fb3c1;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.param strong{font-size:21px;letter-spacing:-.04em}
+.hero-visual{position:relative;min-height:440px;display:grid;place-items:center}
+.orbit{width:min(100%,380px);aspect-ratio:1;border-radius:28px;display:grid;place-items:center;position:relative;border:1px solid rgba(255,255,255,.14);background:linear-gradient(160deg,#12303a,#0d1d29 70%);box-shadow:0 24px 60px rgba(0,0,0,.3)}
+.orbit:before{content:"";position:absolute;inset:18px;border:1px solid rgba(168,242,211,.18);border-radius:18px}
+.core{display:grid;place-items:center;width:46%;aspect-ratio:1;border-radius:22px;background:#15333f;border:1px solid rgba(168,242,211,.35)}
+.core span{font-size:44px;font-weight:700;letter-spacing:-.04em;color:#dcfff0;line-height:1}
+@keyframes spin{to{filter:hue-rotate(20deg);transform:rotate(335deg) scaleY(.38)}}
+.float{position:absolute;padding:16px 20px;border-radius:20px;animation:none}
+.float small{display:block;color:#9fb3c1;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.float strong{font-size:22px;letter-spacing:-.04em}
+.float.a{top:10%;right:-3%}.float.b{bottom:9%;left:-6%;animation-delay:-3s}
+@keyframes bob{to{transform:translateY(-12px)}}
+
+/* ---------- 02 Model ---------- */
+.chain{display:grid;grid-template-columns:repeat(5,1fr);gap:0;align-items:stretch}
+.step{border-radius:22px;padding:20px 18px;text-align:left;cursor:pointer;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;margin-right:-1px;transition:transform .25s,box-shadow .25s}
+.step b{font-size:12px;letter-spacing:.14em;color:var(--mint)}
+.step h3{font-size:16px;margin-top:14px}
+.step:hover{transform:none}
+.step.on{box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.4),0 0 0 1px rgba(168,242,211,.5)}
+.chain-wrap{display:grid;gap:10px}
+.chain{gap:12px}
+.step{margin:0}
+.detail-bar{margin-top:12px;padding:20px 24px;border-radius:20px;color:#cfdce5;font-size:15px;line-height:1.6;min-height:70px}
+.econ{margin-top:26px;display:grid;grid-template-columns:.9fr 1.1fr;gap:16px}
+.econ-main{border-radius:20px;padding:32px}
+.big{font-size:clamp(38px,5vw,56px);letter-spacing:-.06em;font-weight:700;margin:12px 0 4px}
+.split{display:flex;height:60px;border-radius:18px;overflow:hidden;margin:26px 0 12px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.seg{display:flex;align-items:center;justify-content:center;font-weight:750;font-size:14px;cursor:pointer;transition:flex .5s cubic-bezier(.2,.8,.2,1),filter .3s;border:0;color:#06141c;position:relative;overflow:hidden}
+.seg:first-child{background:linear-gradient(120deg,#5d86c7,#78a8d9);color:#fff;flex:70}
+.seg:last-child{background:linear-gradient(120deg,#a8f2d3,#8edfff);flex:30}
+.seg:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.35),transparent 55%)}
+.split:hover .seg{filter:saturate(.6) brightness(.8)}.split .seg:hover,.split .seg:focus-visible{filter:none}
+.split .seg:hover{flex:var(--hv)}
+.legend{display:flex;justify-content:space-between;color:#9fb3c1;font-size:12.5px}
+.metrics{display:grid;gap:12px}
+.metric{padding:20px 24px;border-radius:20px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.metric span{color:var(--muted);font-size:14px}.metric strong{font-size:22px;letter-spacing:-.04em;white-space:nowrap}
+
+/* ---------- 03 Capital ---------- */
+.cap{display:grid;grid-template-columns:1fr 1.05fr;gap:18px;align-items:stretch}
+.gap-card{border-radius:20px;padding:30px}
+.gap-card ol{list-style:none;margin:22px 0 0;padding:0;position:relative}
+.gap-card ol:before{content:"";position:absolute;left:15px;top:14px;bottom:14px;width:1px;background:linear-gradient(var(--mint),rgba(142,223,255,.15))}
+.gap-card li{display:flex;gap:16px;padding:11px 0;color:#cbd9e2;font-size:14.5px;line-height:1.55}
+.gap-card li i{flex:none;width:31px;height:31px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700;color:var(--mint);background:rgba(8,22,32,.85);border:1px solid rgba(168,242,211,.45);z-index:1}
+.gap-card li.key{color:#fff}
+.hub{position:relative;border-radius:20px;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:center}
+.hub-center{grid-column:1/-1;text-align:center;padding:20px;border-radius:22px;background:radial-gradient(circle at 50% 0,rgba(168,242,211,.2),transparent 70%),rgba(255,255,255,.05);border:1px solid rgba(168,242,211,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 0 40px rgba(142,223,255,.12)}
+.hub-center b{display:block;font-size:22px;letter-spacing:-.04em;margin-top:6px}
+.use{padding:18px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.13);box-shadow:inset 0 1px 0 rgba(255,255,255,.14);transition:transform .25s,background .25s}
+.use:hover{background:rgba(255,255,255,.09)}
+.ic{display:block;color:var(--mint);font-size:12px;font-weight:700;letter-spacing:.16em;padding-bottom:10px;margin-bottom:14px;border-bottom:1px solid rgba(168,242,211,.28)}
+.use h3{font-size:15.5px}.use p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.55}
+.logic{margin-top:14px;padding:20px 26px;border-radius:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.logic div b{display:block;font-size:15px;margin-bottom:5px}.logic div span{color:var(--muted);font-size:13px;line-height:1.55}
+
+/* ---------- 04 Trust ---------- */
+.trust{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}
+.stats{display:grid;grid-template-columns:1fr;gap:16px}
+.stat{padding:28px;border-radius:18px}
+.stat .num{font-size:clamp(32px,4vw,48px);font-weight:760;letter-spacing:-.06em;margin:10px 0 6px;white-space:nowrap}
+.stat p{margin:0;color:var(--muted);font-size:13px;line-height:1.55}
+.cert{grid-column:1/-1;padding:22px 26px;border-radius:18px;display:grid;gap:4px}
+.row{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.row:last-child{border:0}.row span{color:var(--muted);text-align:right}
+.reg{padding:28px;border-radius:18px}
+.ati{grid-column:1/-1;padding:26px 30px;border-radius:18px;display:flex;justify-content:space-between;align-items:center;gap:24px;background:linear-gradient(145deg,rgba(168,242,211,.13),rgba(142,223,255,.05))}
+.ati .id{font-size:44px;font-weight:800;letter-spacing:-.07em;margin:6px 0}
+
+/* ---------- 05 Terms ---------- */
+.terms-top{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.term{padding:26px 24px;border-radius:18px}
+.term small{color:var(--mint);font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:800}
+.term strong{display:block;font-size:clamp(24px,2.5vw,32px);letter-spacing:-.055em;margin:12px 0 6px;line-height:1.1}
+.term p{color:var(--muted);font-size:13px;margin:0}
+.term.hl{background:linear-gradient(145deg,rgba(168,242,211,.2),rgba(142,223,255,.07)),rgba(14,30,42,.3);border-color:rgba(168,242,211,.4);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.4),0 0 50px rgba(142,223,255,.12)}
+.term.hl strong{color:var(--mint)}
+.calc-area{margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tablebox,.calc{border-radius:20px;padding:28px}
+table{width:100%;border-collapse:collapse;margin-top:16px}
+th,td{padding:15px 10px;text-align:left;border-bottom:1px solid var(--line);font-size:14px}
+th{color:#9fb3c1;font-weight:600;font-size:12px;letter-spacing:.05em}
+td{font-weight:650}td.inc{color:var(--mint);font-size:16px}
+tr:last-child td{border:0}
+.tw{overflow-x:auto}
+.field{margin-top:16px}
+.field label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:8px;text-transform:uppercase}
+.field input{width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.2);background:rgba(4,14,22,.4);color:#fff;font:inherit;font-size:17px;font-weight:650;outline:0;box-shadow:inset 0 2px 10px rgba(0,0,0,.25)}
+.field input:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(168,242,211,.15)}
+.chips{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.chip{padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);cursor:pointer;font-size:13px;font-weight:650}
+.chip:hover,.chip.on{background:rgba(168,242,211,.16);border-color:rgba(168,242,211,.5)}
+.result{margin-top:22px;padding:20px;border-radius:20px;background:rgba(168,242,211,.08);border:1px solid rgba(168,242,211,.25)}
+.result small{color:var(--muted);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.result .num{font-size:clamp(32px,4vw,44px);font-weight:780;letter-spacing:-.06em;color:var(--mint);margin:6px 0 4px}
+.result p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.55}
+.err{color:#ffc9a8!important}
+.formula{margin:10px 0 0;color:var(--dim);font-size:12.5px}
+
+/* ---------- 06 Legal ---------- */
+.legal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.lc{padding:26px;border-radius:18px}
+
+.lc h3{font-size:17px;margin-bottom:12px}
+.lc p{margin:0 0 9px;color:var(--muted);font-size:13.5px;line-height:1.6}
+.lc p:last-child{margin:0}
+
+/* ---------- Feedback ---------- */
+.fb{border-radius:20px;padding:32px}
+.fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.fb .field{margin-top:12px}.fb .field.full{grid-column:1/-1}
+.fb label i{color:var(--mint);font-style:normal}.fb label em{font-style:normal;color:var(--dim);text-transform:none;letter-spacing:0}
+.fb select,.fb textarea{width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.2);background:rgba(4,14,22,.4);color:#fff;font:inherit;font-size:16px;outline:0}
+.fb select{appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,#a3b7c6 50%),linear-gradient(135deg,#a3b7c6 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+.fb select option{background:#0f202d}
+.fb textarea{min-height:110px;resize:vertical;line-height:1.5}
+.fb select:focus,.fb textarea:focus{border-color:var(--mint);box-shadow:0 0 0 3px rgba(168,242,211,.15)}
+.fb input[aria-invalid=true]{border-color:#ffb38a}
+.fb-bottom{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px}
+.fb-msg{font-size:13px;line-height:1.55;color:var(--muted);flex:1 1 260px}
+.fb-msg.err{color:#ffc9a8}
+.fb-copy{display:none;margin-top:14px}
+.fb-copy textarea{min-height:170px;font-size:13px}
+/* ---------- 07 CTA ---------- */
+.cta{padding:52px;border-radius:24px;background:linear-gradient(130deg,rgba(168,242,211,.16),rgba(142,223,255,.09) 50%,rgba(89,111,190,.14)),rgba(14,30,42,.3)}
+.cta-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.cta h2{margin-top:10px}
+.who{margin-top:24px;padding:18px 20px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);font-size:14px;line-height:1.6}
+.who b{display:block;font-size:17px}.who span{color:var(--muted)}
+.req{padding:24px 26px;border-radius:18px;background:rgba(4,14,22,.28);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+.req .row{font-size:13px;padding:11px 0}
+footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
+.frow{display:flex;justify-content:space-between;gap:25px;border-top:1px solid var(--line);padding-top:22px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .45s ease,transform .45s ease}
+.rv.v{opacity:1;transform:none}
+
+/* ---------- Details ---------- */
+.term.hl{background:#12303a;border-color:rgba(168,242,211,.4)}
+.cta{background:#10303a}
+.ati{background:#102a33}
+.float{animation:none}
+.step.on{box-shadow:0 0 0 1px rgba(168,242,211,.55)}
+.hub-center,.use,.who,.req{box-shadow:none;background:#12283a}
+.primary,.secondary,.mark{box-shadow:none}
+.seg:before{display:none}
+.warn{background:#2a2420}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1000px){
+ .hero{grid-template-columns:1fr;gap:10px;padding-top:56px;min-height:unset}.hero-visual{min-height:380px}
+ .chain{grid-template-columns:repeat(3,1fr)}.econ,.cap,.trust,.calc-area,.cta-grid{grid-template-columns:1fr}
+ .terms-top{grid-template-columns:1fr 1fr}.fb-grid{grid-template-columns:1fr}.legal{grid-template-columns:1fr}.logic{grid-template-columns:1fr}
+ .navlinks{position:fixed;left:14px;right:14px;top:calc(82px + var(--safe-t));overflow-x:auto;padding:6px;border-radius:18px;background:#0f202d;border:1px solid rgba(255,255,255,.14);scrollbar-width:none}
+ .navlinks::-webkit-scrollbar{display:none}
+ section{padding:96px 0 56px}section:first-of-type{padding-top:60px}
+ html{scroll-padding-top:150px}
+}
+@media(max-width:640px){
+ .wrap{width:calc(100% - 28px)}.nav{height:58px}.navcta{padding:10px 13px;font-size:12px}.brand small{display:none}
+ h1{font-size:42px}.lead{font-size:16px}.hero-visual{min-height:310px}.orbit{width:270px}.float{padding:12px 14px}.float strong{font-size:18px}.float.a{right:-1%}.float.b{left:-1%}
+ .chain{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr}.terms-top{grid-template-columns:1fr}
+ .cta{padding:28px 20px}.fb{padding:22px}.ati{flex-direction:column;align-items:flex-start}.hub{grid-template-columns:1fr;padding:20px}
+ .gap-card,.tablebox,.calc,.econ-main,.reg,.stat{padding:22px}.metric{padding:16px 18px}.metric strong{font-size:19px}
+ .row{flex-direction:column;gap:3px}.row span{text-align:left}.frow{flex-direction:column}
+ .param{min-width:0;flex:1 1 140px}.stat .num{white-space:normal}.logic{padding:20px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="wrap"><nav class="nav card">
+ <a class="brand" href="#top"><span class="mark">ИК</span><span>ИВАН КАЛИТА<small>ГРУЗОВАЯ ЭКСПЕДИЦИЯ</small></span></a>
+ <div class="navlinks" id="navlinks">
+  <a href="#top">Предложение</a><a href="#model">Бизнес</a><a href="#capital">Капитал</a><a href="#trust">Проверка</a><a href="#terms">Условия</a><a href="#legal">Договор</a><a href="#feedback">Заявка</a><a href="#contact">Контакты</a>
+ </div>
+ <a class="btn primary navcta" href="#contact">Связаться</a>
+</nav></header>
+
+<main id="top">
+<!-- 1. HERO -->
+<section class="wrap hero" data-nav="top" style="padding-bottom:70px">
+ <div>
+  <div class="eyebrow"><i class="dot"></i> ООО «Иван Калита» · Инвестиционное предложение</div>
+  <h1>Финансирование <span>оборотного капитала</span> в грузовой экспедиции</h1>
+  <p class="lead">Экспедитор организует перевозку между заказчиком и перевозчиком. Привлечённый заём позволяет авансировать рейсы и не ждать расчётов по предыдущим заявкам. Предложение оформляется договором займа.</p>
+  <div class="actions"><a class="btn primary" href="#model">Изучить предложение ↓</a><a class="btn secondary" href="#contact">Связаться</a></div>
+  <div class="params">
+   <div class="param card"><small>Сумма</small><strong>от 1 000 000 ₽</strong></div>
+   <div class="param card"><small>Срок</small><strong>от 3 месяцев</strong></div>
+   <div class="param card"><small>Предлагаемая ставка</small><strong>4% в месяц</strong></div>
+  </div>
+ </div>
+ <div class="hero-visual">
+  <div class="orbit"><div class="core"><span>ИК</span></div></div>
+  <div class="float a card"><small>Роль компании</small><strong>Экспедитор</strong></div>
+  <div class="float b card"><small>Форма сделки</small><strong>Договор займа</strong></div>
+ </div>
+</section>
+
+<!-- 2. BUSINESS -->
+<section id="model" class="wrap" data-nav="model">
+ <div class="head rv"><div class="kicker">01 · Бизнес и операционная модель</div><h2>Экспедитор — звено между заказом и перевозкой</h2><p class="sub">Компания организует рейс и финансовый клиринг. Доход — разница между тарифом заказчика и стоимостью услуг перевозчика. Нажмите на этап, чтобы увидеть детали.</p></div>
+ <div class="chain-wrap rv">
+  <div class="chain" id="chain">
+   <button class="step card on" data-t="Размещает заявку на перевозку и ожидает своевременной доставки груза."><b>01</b><h3>Заказчик</h3></button>
+   <button class="step card" data-t="ООО «Иван Калита» организует рейс, подбирает транспорт и маршрут, обеспечивает финансовый клиринг."><b>02</b><h3>ООО «Иван Калита»</h3></button>
+   <button class="step card" data-t="Выступает прямым исполнителем транспортной услуги по договору и выходит в рейс."><b>03</b><h3>Перевозчик</h3></button>
+   <button class="step card" data-t="Сопровождение рейса и сдача груза."><b>04</b><h3>Доставка</h3></button>
+   <button class="step card" data-t="Расчёт с перевозчиком и формирование маржи."><b>05</b><h3>Оплата</h3></button>
+  </div>
+  <div class="detail-bar card" id="chainText">Размещает заявку на перевозку и ожидает своевременной доставки груза.</div>
+ </div>
+ <div class="econ">
+  <div class="econ-main card rv">
+   <div class="kicker">Экономика условной сделки</div>
+   <div class="big">1 000 000 ₽</div><div class="sub" style="font-size:14px">Оплата клиента</div>
+   <div class="split" id="split">
+    <button class="seg" style="--hv:60" data-i="0" aria-label="Стоимость перевозчика 70%">70%</button>
+    <button class="seg" style="--hv:60" data-i="1" aria-label="Валовая маржа 30%">30%</button>
+   </div>
+   <div class="legend"><span>Перевозчик</span><span>Валовая маржа</span></div>
+  </div>
+  <div class="metrics rv">
+   <div class="metric card"><span>Оплата клиента</span><strong>1 000 000 ₽</strong></div>
+   <div class="metric card" data-seg="0"><span>Стоимость перевозчика</span><strong>700 000 ₽</strong></div>
+   <div class="metric card" data-seg="1"><span>Валовая маржа</span><strong style="color:var(--mint)">300 000 ₽</strong></div>
+   <div class="metric card"><span>Маржинальность</span><strong>30%</strong></div>
+  </div>
+ </div>
+ <p class="note">Важно: расчёт является иллюстративным примером экономики одной сделки, а не подтверждённой средней статистикой компании. Отдельные дополнительные расходы по сделке отсутствуют: при страховании его стоимость включается перевозчиком и перевыставляется заказчику.</p>
+</section>
+
+<!-- 3. CAPITAL -->
+<section id="capital" class="wrap" data-nav="capital">
+ <div class="head rv"><div class="kicker">02 · Зачем нужны инвестиции</div><h2>Оборотный капитал убирает паузы между рейсами</h2><p class="sub">Внешнее финансирование позволяет запускать несколько рейсов параллельно, не дожидаясь закрытия расчётов по предыдущим заявкам.</p></div>
+ <div class="cap">
+  <div class="gap-card card rv">
+   <div class="kicker">Временный кассовый разрыв</div>
+   <ol>
+    <li><i>1</i><span>Появляется новый заказ на перевозку.</span></li>
+    <li><i>2</i><span>Перевозчику требуется предоплата для начала рейса.</span></li>
+    <li><i>3</i><span>Оплата от заказчика поступит только после выполнения доставки.</span></li>
+    <li><i>4</i><span>Без свободного оборотного капитала компания вынуждена ждать завершения предыдущих расчётов.</span></li>
+    <li class="key"><i>5</i><span><b>Дополнительное финансирование позволяет запускать несколько рейсов параллельно.</b></span></li>
+   </ol>
+  </div>
+  <div class="hub card rv">
+   <div class="hub-center"><div class="kicker">Привлечённый капитал</div><b>Куда направляются средства</b></div>
+   <div class="use"><div class="ic">01</div><h3>Предоплата перевозчикам</h3><p>Оперативное авансирование рейсов и сокращение задержек.</p></div>
+   <div class="use"><div class="ic">02</div><h3>Финансирование новых заказов</h3><p>Запуск подтверждённых заявок без ожидания постоплаты.</p></div>
+   <div class="use"><div class="ic">03</div><h3>Увеличение оборота</h3><p>Рост числа одновременно выполняемых перевозок.</p></div>
+   <div class="use"><div class="ic">04</div><h3>Непрерывность операций</h3><p>Стабильный цикл движения оборотных средств.</p></div>
+  </div>
+ </div>
+ <div class="logic card rv">
+  <div><b>Доступный капитал</b><span>Формирование резерва для авансирования рейсов.</span></div>
+  <div><b>Больше заказов</b><span>Одновременное обслуживание большего числа заявок.</span></div>
+  <div><b>Снятие пауз</b><span>Меньше ограничений из-за ожидания постоплаты и более устойчивый цикл исполнения обязательств.</span></div>
+ </div>
+</section>
+
+<!-- 4. TRUST -->
+<section id="trust" class="wrap" data-nav="trust">
+ <div class="head rv"><div class="kicker">03 · Финансовая информация и подтверждения</div><h2>Что можно проверить</h2><p class="sub">Показатели приведены по справке АО «ТБанк» № 9715509547/2026-11-21/47292 об оборотах по расчётному счёту.</p></div>
+ <div class="trust">
+  <div class="stats">
+   <div class="stat card rv"><div class="kicker">Обороты компании</div><div class="num">11 214 304,41 ₽</div><p>Период: с июля 2026 — 21.11.2026</p></div>
+   <div class="ati card rv"><div><div class="kicker">ATI.SU · «АвтоТрансИнфо»</div><div class="id">ID 8295664</div><p class="sub" style="font-size:14px">Компания зарегистрирована на отраслевой логистической платформе для работы с грузами и перевозчиками.</p></div><a class="btn primary" href="https://ati.su/firms/8295664/info" target="_blank" rel="noopener">Открыть профиль ↗</a></div>
+  </div>
+  <div class="reg card rv">
+   <h3 style="margin-bottom:12px">Регистрационные данные</h3>
+   <div class="row">Юридическое лицо<span>ООО «Иван Калита»</span></div>
+   <div class="row">ИНН<span>9715509547</span></div>
+   <div class="row">ОГРН<span>1257700183828</span></div>
+   <div class="row">Адрес<span>г. Москва, ул. Гостиничная, д. 10, к. 5, пом. 18/1а</span></div>
+   <div class="row">Банк<span>АО «ТБанк»</span></div>
+   <div class="row">БИК<span>044525974</span></div>
+   <div class="row">Расчётный счёт<span>40702810110001898152</span></div>
+  </div>
+ </div>
+</section>
+
+<!-- 5. TERMS -->
+<section id="terms" class="wrap" data-nav="terms">
+ <div class="head rv"><div class="kicker">04 · Инвестиционные условия</div><h2>Условия займа и расчёт дохода</h2><p class="sub">Предлагаемые условия финансирования оборотного капитала.</p></div>
+ <div class="terms-top">
+  <div class="term card rv"><small>Минимальная сумма</small><strong>1 000 000 ₽</strong><p>Единовременный транш</p></div>
+  <div class="term card rv"><small>Срок</small><strong>От 3 месяцев</strong><p>Минимальный период</p></div>
+  <div class="term card hl rv"><small>Предлагаемая ставка</small><strong>4% в месяц</strong><p>Закрепляется в договоре займа</p></div>
+  <div class="term card rv"><small>Форма сделки</small><strong>Договор займа</strong><p>Официальное оформление</p></div>
+ </div>
+ <div class="calc-area">
+  <div class="tablebox card rv">
+   <div class="kicker">Пример расчёта</div>
+   <div class="tw"><table><thead><tr><th>ПЕРИОД</th><th>СУММА ЗАЙМА</th><th>ДОХОД</th></tr></thead><tbody>
+    <tr><td>3 месяца</td><td>1 000 000 ₽</td><td class="inc">120 000 ₽</td></tr>
+    <tr><td>12 месяцев</td><td>1 000 000 ₽</td><td class="inc">480 000 ₽</td></tr>
+    <tr><td>18 месяцев</td><td>1 000 000 ₽</td><td class="inc">720 000 ₽</td></tr>
+   </tbody></table></div>
+   <p class="formula">Формула: сумма займа × 0,04 × количество месяцев.</p>
+  </div>
+  <div class="calc card rv">
+   <div class="kicker">Иллюстративный калькулятор</div>
+   <div class="field"><label for="sum">Сумма займа, ₽</label><input id="sum" type="text" inputmode="numeric" value="1 000 000" autocomplete="off"></div>
+   <div class="field"><label for="mon">Срок, месяцев</label><input id="mon" type="text" inputmode="numeric" value="12" autocomplete="off">
+    <div class="chips" id="chips"><button class="chip" type="button" data-m="3">3</button><button class="chip on" type="button" data-m="12">12</button><button class="chip" type="button" data-m="18">18</button></div></div>
+   <div class="result"><small>Примерный доход</small><div class="num" id="out">480 000 ₽</div><p id="outNote">Простые проценты: 1 000 000 × 0,04 × 12.</p></div>
+  </div>
+ </div>
+ <p class="note">Ставка 4% в месяц является предлагаемым условием привлечения займа, а не гарантированной доходностью. Калькулятор носит иллюстративный характер и не является обещанием выплаты. Расчёт выполнен по простым процентам, без капитализации, до вычета возможных налогов и иных обязательных удержаний (если применимо). Порядок выплаты процентов и возврата долга закрепляется договором.</p>
+</section>
+
+<!-- 6. LEGAL -->
+<section id="legal" class="wrap" data-nav="legal">
+ <div class="head rv"><div class="kicker">05 · Юридическая структура</div><h2>Как оформляется сделка</h2></div>
+ <div class="legal">
+  <article class="lc card rv"><div class="ic">01</div><h3>Стороны</h3><p><b>Инвестор:</b> физическое лицо, ИП или ООО.</p><p><b>Заёмщик:</b> ООО «Иван Калита».</p></article>
+  <article class="lc card rv"><div class="ic">02</div><h3>Перевод средств</h3><p>Безналичный перевод на расчётный счёт для ИП и ООО; по договорённости сторон возможен наличный расчёт.</p></article>
+  <article class="lc card rv"><div class="ic">03</div><h3>Что фиксируется в договоре</h3><p>Сумма займа, процентная ставка и график выплат.</p><p>Реквизиты сторон.</p></article>
+  <article class="lc card rv"><div class="ic">04</div><h3>Сроки и возврат</h3><p>Порядок возврата основного долга и пролонгации. Порядок выплаты процентов и возврата долга закрепляется договором.</p></article>
+  <article class="lc card rv"><div class="ic">05</div><h3>Ответственность сторон</h3><p>Договор определяет ответственность за нарушение сроков.</p></article>
+ </div>
+</section>
+
+<!-- 6b. FEEDBACK -->
+<section id="feedback" class="wrap" data-nav="feedback">
+ <div class="head rv"><div class="kicker">06 · Обратная связь</div><h2>Оставьте заявку</h2><p class="sub">Заполните форму — откроется почтовая программа с готовым письмом. Останется проверить данные и нажать «Отправить».</p></div>
+ <form class="fb card rv" id="fb" novalidate>
+  <div class="fb-grid">
+   <div class="field"><label for="fn">Имя <i>*</i></label><input id="fn" name="fn" type="text" autocomplete="given-name"></div>
+   <div class="field"><label for="ln">Фамилия <i>*</i></label><input id="ln" name="ln" type="text" autocomplete="family-name"></div>
+   <div class="field"><label for="ph">Номер телефона <i>*</i></label><input id="ph" name="ph" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (000) 000-00-00"></div>
+   <div class="field"><label for="em">Email <i>*</i></label><input id="em" name="em" type="email" autocomplete="email" placeholder="name@example.com"></div>
+   <div class="field"><label for="mt">Мессенджер <em>(при наличии)</em></label><select id="mt"><option value="">Не указан</option><option>Telegram</option><option>WhatsApp</option><option>Max</option><option>Другой</option></select></div>
+   <div class="field"><label for="mh">Ник или номер в мессенджере <em>(при наличии)</em></label><input id="mh" name="mh" type="text" autocomplete="off" placeholder="@username"></div>
+   <div class="field full"><label for="cm">Комментарий <em>(необязательно)</em></label><textarea id="cm" name="cm"></textarea></div>
+  </div>
+  <div class="fb-bottom"><a class="btn primary" id="fbSend" href="mailto:asiya_shir@mail.ru?subject=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C" role="button">Открыть письмо с заявкой</a><div class="fb-msg" id="fbMsg">Письмо будет отправлено только после того, как вы нажмёте «Отправить» в своей почтовой программе.</div></div>
+  <div class="fb-copy" id="fbCopy"><div class="field"><label for="fbText">Если почтовая программа не открылась, скопируйте текст заявки и отправьте на asiya_shir@mail.ru</label><textarea id="fbText" readonly></textarea></div><div class="actions" style="margin-top:12px"><button class="btn secondary" type="button" id="fbCopyBtn">Скопировать текст</button></div></div>
+ </form>
+</section>
+
+<!-- 7. CTA -->
+<section id="contact" class="wrap" data-nav="contact">
+ <div class="cta card rv">
+  <div class="cta-grid">
+   <div>
+    <div class="kicker">Следующий шаг</div>
+    <h2>Давайте обсудим сотрудничество</h2>
+    <p class="sub">Заём в оборотный капитал от 1 000 000 ₽ на срок от 3 месяцев под предлагаемую ставку 4% в месяц по договору займа.</p>
+    <div class="actions" style="margin-top:22px">
+     <a class="btn primary" href="https://t.me/asiya_shir" target="_blank" rel="noopener">Telegram @asiya_shir ↗</a>
+     <a class="btn secondary" href="mailto:asiya_shir@mail.ru">asiya_shir@mail.ru</a>
+    </div>
+   </div>
+   <div class="req">
+    <div class="kicker" style="margin-bottom:8px">Реквизиты заёмщика</div>
+    <div class="row">Организация<span>ООО «Иван Калита»</span></div>
+    <div class="row">ИНН<span>9715509547</span></div>
+    <div class="row">ОГРН<span>1257700183828</span></div>
+    <div class="row">Расчётный счёт<span>40702810110001898152</span></div>
+    <div class="row">Банк<span>АО «ТБанк»</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer class="wrap">
+ <div class="frow"><div>ООО «Иван Калита» · ИНН 9715509547</div><div>Инвестиционное предложение · Информация представлена для ознакомления</div></div>
+ <p>Указанные параметры займа и расчёты носят информационный характер. До принятия решения необходимо изучить условия договора, порядок выплат, риски и финансовые документы заёмщика. Предлагаемая ставка не является обещанием или гарантией доходности.</p>
+</footer>
+
+
+<script>
+(function(){
+ var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+ var fmt=function(n){return new Intl.NumberFormat('ru-RU').format(n).replace(/\u00a0|\u202f/g,' ')};
+
+ // Feedback form -> mailto
+ var fb=$('#fb'),fbMsg=$('#fbMsg'),TO='asiya_shir@mail.ru';
+ var val=function(id){return $('#'+id).value.trim()};
+ var phPrev=0;
+ $('#ph').addEventListener('input',function(e){
+  var v=this.value,d=v.replace(/\D/g,''),del=e&&e.inputType&&e.inputType.indexOf('delete')===0;
+  if(!d.length){this.value=(!del&&v.charAt(0)==='+')?'+':'';phPrev=0;return}
+  if(d.charAt(0)==='7'||d.charAt(0)==='8')d=d.slice(1);
+  d=d.slice(0,10);
+  if(del&&d.length===phPrev&&d.length>0)d=d.slice(0,-1);
+  phPrev=d.length;
+  if(!d.length){this.value=del?'':'+7';return}
+  var o='+7 ('+d.slice(0,3);if(d.length>=3)o+=')';if(d.length>3)o+=' '+d.slice(3,6);if(d.length>6)o+='-'+d.slice(6,8);if(d.length>8)o+='-'+d.slice(8,10);
+  this.value=o;
+ });
+ function build(){
+  var type=val('mt')||'не указан',h=val('mh')||'@не указано',c=val('cm')||'не указан';
+  var lines=['<!НАЖМИТЕ ОТПРАВИТЬ, ЕСЛИ ДАННЫЕ ВЕРНЫ>','Имя: '+val('fn'),'Фамилия: '+val('ln'),'Номер телефона: '+val('ph'),'Email: '+val('em'),'Мессенджер: '+type+' ('+h+')','Комментарий: '+c];
+  return lines.join('\r\n');
+ }
+ function bad(id,on){$('#'+id).setAttribute('aria-invalid',on?'true':'false')}
+ var send=$('#fbSend');
+ function mailHref(){return 'mailto:'+TO+'?subject='+encodeURIComponent('Заявка на обратную связь')+'&body='+encodeURIComponent(build())}
+ function validate(){
+  var first=null,checks={fn:val('fn').length>0,ln:val('ln').length>0,ph:val('ph').replace(/\D/g,'').length>=10,em:/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('em'))};
+  Object.keys(checks).forEach(function(k){bad(k,!checks[k]);if(!checks[k]&&!first)first=k});
+  fbMsg.classList.toggle('err',!!first);
+  if(first){fbMsg.textContent='Проверьте выделенные поля: имя, фамилия, телефон (не менее 10 цифр) и корректный email обязательны.';$('#'+first).focus();return false}
+  return true;
+ }
+ function refresh(){send.setAttribute('href',mailHref());$('#fbText').value=build()}
+ fb.addEventListener('input',refresh);fb.addEventListener('change',refresh);refresh();
+ send.addEventListener('click',function(e){
+  if(!validate()){e.preventDefault();return}
+  refresh();$('#fbCopy').style.display='block';
+  fbMsg.textContent='Открываем почтовую программу. Проверьте письмо и нажмите «Отправить».';
+ });
+ fb.addEventListener('submit',function(e){e.preventDefault();send.click()});
+ ['fn','ln','ph','em'].forEach(function(id){$('#'+id).addEventListener('input',function(){bad(id,false)})});
+ $('#fbCopyBtn').addEventListener('click',function(){
+  var t=$('#fbText');t.select();
+  try{navigator.clipboard?navigator.clipboard.writeText(t.value):document.execCommand('copy');this.textContent='Скопировано'}catch(x){document.execCommand('copy')}
+ });
+
+ // Reveal
+ var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('v');io.unobserve(x.target)}})},{threshold:.1});
+ $$('.rv').forEach(function(el){io.observe(el)});
+
+ // Active nav
+ var links=$$('#navlinks a'),secs=$$('[data-nav]');
+ function spy(){
+  var y=window.scrollY+window.innerHeight*.35,cur=secs[0];
+  secs.forEach(function(s){if(s.offsetTop<=y)cur=s});
+  if(window.innerHeight+window.scrollY>=document.body.scrollHeight-4)cur=secs[secs.length-1];
+  links.forEach(function(a){var on=a.getAttribute('href')==='#'+cur.dataset.nav;a.classList.toggle('active',on);
+   if(on&&getComputedStyle($('#navlinks')).position==='fixed'){var c=$('#navlinks');c.scrollTo({left:a.offsetLeft-20,behavior:'smooth'})}});
+ }
+ var st=0;window.addEventListener('scroll',function(){if(st)return;st=requestAnimationFrame(function(){st=0;spy()})},{passive:true});spy();
+
+ // Deal chain
+ $$('#chain .step').forEach(function(s){s.addEventListener('click',function(){
+  $$('#chain .step').forEach(function(x){x.classList.remove('on')});s.classList.add('on');$('#chainText').textContent=s.dataset.t;
+ })});
+
+ // Split bar <-> metrics
+ $$('.seg').forEach(function(s){
+  var m=$('.metric[data-seg="'+s.dataset.i+'"]');
+  ['mouseenter','focus'].forEach(function(ev){s.addEventListener(ev,function(){m&&m.classList.add('hot');m&&(m.style.boxShadow='0 0 0 1px rgba(168,242,211,.5),0 0 30px rgba(142,223,255,.2)')})});
+  ['mouseleave','blur'].forEach(function(ev){s.addEventListener(ev,function(){m&&(m.style.boxShadow='')})});
+ });
+
+ // Calculator: sum × 0.04 × months (simple interest)
+ var sum=$('#sum'),mon=$('#mon'),out=$('#out'),note=$('#outNote');
+ var num=function(v){return parseInt(String(v).replace(/\D/g,''),10)||0};
+ function calc(){
+  var s=num(sum.value),m=num(mon.value);
+  $$('.chip').forEach(function(c){c.classList.toggle('on',+c.dataset.m===m)});
+  note.classList.remove('err');
+  if(s<1000000){out.textContent='—';note.textContent='Минимальная сумма займа — 1 000 000 ₽.';note.classList.add('err');return}
+  if(m<3){out.textContent='—';note.textContent='Минимальный срок — 3 месяца.';note.classList.add('err');return}
+  out.textContent=fmt(Math.round(s*0.04*m*100)/100)+' ₽';
+  note.textContent='Простые проценты без капитализации, до налогов и удержаний: '+fmt(s)+' × 0,04 × '+m+'. Иллюстративный расчёт, не обещание выплаты.';
+ }
+ sum.addEventListener('input',function(){var n=num(sum.value);sum.value=n?fmt(n):'';calc()});
+ mon.addEventListener('input',function(){var n=num(mon.value);mon.value=n?String(n):'';calc()});
+ $$('.chip').forEach(function(c){c.addEventListener('click',function(){mon.value=c.dataset.m;calc()})});
+ calc();
+})();
+</script>
+</body>
+</html>
