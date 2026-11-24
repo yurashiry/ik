@@ -387,7 +387,7 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
 <!-- 6b. FEEDBACK -->
 <section id="feedback" class="wrap" data-nav="feedback">
  <div class="head rv"><div class="kicker">06 · Обратная связь</div><h2>Оставьте заявку</h2><p class="sub">Заполните форму — заявка автоматически уйдёт на нашу почту, и мы свяжемся с вами.</p></div>
- <form class="fb card rv" id="fb" action="https://formsubmit.co/asiya_shir@mail.ru" method="POST" novalidate>
+ <form class="fb card rv" id="fb" action="https://formsubmit.co/yurashiry@gmail.com" method="POST" novalidate>
   <input type="hidden" name="_subject" value="Заявка на обратную связь — ООО «Иван Калита»"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
   <div class="fb-grid">
    <div class="field full"><label for="fn">Имя <i>*</i></label><input id="fn" name="Имя" type="text" autocomplete="given-name"></div>
@@ -447,7 +447,7 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
   if(first){fbMsg.textContent='Проверьте выделенные поля: имя и корректный email обязательны.';$('#'+first).focus();return false}
   return true;
  }
- function fail(){fbMsg.classList.add('err');fbMsg.innerHTML='Не удалось отправить заявку. Попробуйте ещё раз или напишите нам на <a href="mailto:'+TO+'" style="text-decoration:underline">'+TO+'</a>.'}
+ function fail(){fbMsg.classList.add('err');fbMsg.innerHTML='Не удалось отправить заявку.</a>.'}
  fb.addEventListener('submit',function(e){
   e.preventDefault();
   if(!validate())return;
