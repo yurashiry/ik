@@ -440,8 +440,8 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
  var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
  var fmt=function(n){return new Intl.NumberFormat('ru-RU').format(n).replace(/\u00a0|\u202f/g,' ')};
 
- // Feedback form -> FormSubmit напрямую (Turnstile — защита от ботов на форме)
- var FORM_ENDPOINT='https://formsubmit.co/ajax/asiya_shir@mail.ru',SITE_KEY='0x4AAAAAAGQgAI2Iv7idcEIE';
+ // Feedback form -> Cloudflare Worker -> Telegram (Turnstile проверяется на стороне Worker)
+ var WORKER_URL='https://ivankalita.yurashiry.workers.dev/',SITE_KEY='0x4AAAAAAGQgAI2Iv7idcEIE';
  var fb=$('#fb'),fbMsg=$('#fbMsg'),send=$('#fbSend'),tsToken='',tsId=null,busy=false;
  var val=function(id){return $('#'+id).value.trim()};
  function bad(id,on){$('#'+id).setAttribute('aria-invalid',on?'true':'false')}
@@ -462,6 +462,7 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
   if(first){say('Проверьте выделенные поля: имя и корректный email обязательны.','err');$('#'+first).focus();return false}
   return true;
  }
+ var ERR={captcha:'Проверка безопасности не пройдена. Попробуйте ещё раз.',invalid:'Проверьте данные формы и попробуйте ещё раз.',rate:'Слишком частые отправки. Подождите минуту и попробуйте снова.',forbidden:'Отправка с этого адреса сайта не разрешена.',server:'Сервис временно недоступен. Попробуйте позже.'};
  function done(){busy=false;send.disabled=false;send.textContent='Отправить заявку'}
  fb.addEventListener('submit',function(e){
   e.preventDefault();
@@ -470,14 +471,14 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
   if(!tsToken){say('Дождитесь завершения проверки безопасности и повторите отправку.','err');return}
   busy=true;send.disabled=true;send.textContent='Отправляем…';say('Отправляем заявку…');
   var ctrl=new AbortController(),timer=setTimeout(function(){ctrl.abort()},20000);
-  var payload={name:val('fn'),email:val('em'),title:'Заявка на обратную связь',message:val('cm')||'не указан',_subject:'Заявка на обратную связь — ООО «Иван Калита»',_template:'table',_honey:$('#fbHoney').value};
-  fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload),signal:ctrl.signal})
-   .then(function(r){return r.json().catch(function(){return{}}).then(function(j){return{ok:r.ok,j:j}})})
+  var payload={name:val('fn'),email:val('em'),message:val('cm'),_honey:$('#fbHoney').value,token:tsToken};
+  fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:ctrl.signal})
+   .then(function(r){return r.json().catch(function(){return{}}).then(function(j){return{status:r.status,j:j}})})
    .then(function(x){
-    if(x.ok&&String(x.j.success)==='true'){fb.reset();say('Спасибо! Заявка отправлена, мы свяжемся с вами.','ok');send.textContent='Отправлено';setTimeout(done,4000)}
-    else{console.warn('Form: ответ FormSubmit',x.j);say('Не удалось отправить заявку. Попробуйте позже.','err');done()}
+    if(x.j&&x.j.ok===true){fb.reset();say('Спасибо! Заявка отправлена, мы свяжемся с вами.','ok');send.textContent='Отправлено';setTimeout(done,4000)}
+    else{console.warn('Form: ответ Worker',x.status,x.j);say(ERR[x.j&&x.j.error]||'Не удалось отправить заявку. Попробуйте позже.','err');done()}
    })
-   .catch(function(err){console.error('Form: запрос не выполнен (сеть/таймаут)',err);say('Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз.','err');done()})
+   .catch(function(err){console.error('Form: запрос не выполнен (сеть/CORS/таймаут)',err);say('Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз.','err');done()})
    .then(function(){clearTimeout(timer);resetTs()});
  });
  ['fn','em'].forEach(function(id){$('#'+id).addEventListener('input',function(){bad(id,false)})});
@@ -530,4 +531,3 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit" async defer></script>
 </body>
 </html>
-
