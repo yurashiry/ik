@@ -180,8 +180,6 @@ tr:last-child td{border:0}
 .fb-bottom{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:22px}
 .fb-msg{font-size:13px;line-height:1.55;color:var(--muted);flex:1 1 260px}
 .fb-msg.err{color:#ffc9a8}
-.fb-copy{display:none;margin-top:14px}
-.fb-copy textarea{min-height:170px;font-size:13px}
 /* ---------- 07 CTA ---------- */
 .cta{padding:52px;border-radius:24px;background:linear-gradient(130deg,rgba(168,242,211,.16),rgba(142,223,255,.09) 50%,rgba(89,111,190,.14)),rgba(14,30,42,.3)}
 .cta-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
@@ -388,19 +386,15 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
 
 <!-- 6b. FEEDBACK -->
 <section id="feedback" class="wrap" data-nav="feedback">
- <div class="head rv"><div class="kicker">06 · Обратная связь</div><h2>Оставьте заявку</h2><p class="sub">Заполните форму — откроется почтовая программа с готовым письмом. Останется проверить данные и нажать «Отправить».</p></div>
- <form class="fb card rv" id="fb" novalidate>
+ <div class="head rv"><div class="kicker">06 · Обратная связь</div><h2>Оставьте заявку</h2><p class="sub">Заполните форму — заявка автоматически уйдёт на нашу почту, и мы свяжемся с вами.</p></div>
+ <form class="fb card rv" id="fb" action="https://formsubmit.co/asiya_shir@mail.ru" method="POST" novalidate>
+  <input type="hidden" name="_subject" value="Заявка на обратную связь — ООО «Иван Калита»"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
   <div class="fb-grid">
-   <div class="field"><label for="fn">Имя <i>*</i></label><input id="fn" name="fn" type="text" autocomplete="given-name"></div>
-   <div class="field"><label for="ln">Фамилия <i>*</i></label><input id="ln" name="ln" type="text" autocomplete="family-name"></div>
-   <div class="field"><label for="ph">Номер телефона <i>*</i></label><input id="ph" name="ph" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (000) 000-00-00"></div>
-   <div class="field"><label for="em">Email <i>*</i></label><input id="em" name="em" type="email" autocomplete="email" placeholder="name@example.com"></div>
-   <div class="field"><label for="mt">Мессенджер <em>(при наличии)</em></label><select id="mt"><option value="">Не указан</option><option>Telegram</option><option>WhatsApp</option><option>Max</option><option>Другой</option></select></div>
-   <div class="field"><label for="mh">Ник или номер в мессенджере <em>(при наличии)</em></label><input id="mh" name="mh" type="text" autocomplete="off" placeholder="@username"></div>
-   <div class="field full"><label for="cm">Комментарий <em>(необязательно)</em></label><textarea id="cm" name="cm"></textarea></div>
+   <div class="field full"><label for="fn">Имя <i>*</i></label><input id="fn" name="Имя" type="text" autocomplete="given-name"></div>
+   <div class="field full"><label for="em">Email <i>*</i></label><input id="em" name="email" type="email" autocomplete="email" placeholder="name@example.com"></div>
+   <div class="field full"><label for="cm">Комментарий <em>(необязательно)</em></label><textarea id="cm" name="Комментарий"></textarea></div>
   </div>
-  <div class="fb-bottom"><a class="btn primary" id="fbSend" href="mailto:asiya_shir@mail.ru?subject=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D0%BD%D1%83%D1%8E%20%D1%81%D0%B2%D1%8F%D0%B7%D1%8C" role="button">Открыть письмо с заявкой</a><div class="fb-msg" id="fbMsg">Письмо будет отправлено только после того, как вы нажмёте «Отправить» в своей почтовой программе.</div></div>
-  <div class="fb-copy" id="fbCopy"><div class="field"><label for="fbText">Если почтовая программа не открылась, скопируйте текст заявки и отправьте на asiya_shir@mail.ru</label><textarea id="fbText" readonly></textarea></div><div class="actions" style="margin-top:12px"><button class="btn secondary" type="button" id="fbCopyBtn">Скопировать текст</button></div></div>
+  <div class="fb-bottom"><button class="btn primary" id="fbSend" type="submit">Отправить заявку</button><div class="fb-msg" id="fbMsg">Обязательные поля отмечены *.</div></div>
  </form>
 </section>
 
@@ -444,46 +438,31 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
  // Feedback form -> mailto
  var fb=$('#fb'),fbMsg=$('#fbMsg'),TO='asiya_shir@mail.ru';
  var val=function(id){return $('#'+id).value.trim()};
- var phPrev=0;
- $('#ph').addEventListener('input',function(e){
-  var v=this.value,d=v.replace(/\D/g,''),del=e&&e.inputType&&e.inputType.indexOf('delete')===0;
-  if(!d.length){this.value=(!del&&v.charAt(0)==='+')?'+':'';phPrev=0;return}
-  if(d.charAt(0)==='7'||d.charAt(0)==='8')d=d.slice(1);
-  d=d.slice(0,10);
-  if(del&&d.length===phPrev&&d.length>0)d=d.slice(0,-1);
-  phPrev=d.length;
-  if(!d.length){this.value=del?'':'+7';return}
-  var o='+7 ('+d.slice(0,3);if(d.length>=3)o+=')';if(d.length>3)o+=' '+d.slice(3,6);if(d.length>6)o+='-'+d.slice(6,8);if(d.length>8)o+='-'+d.slice(8,10);
-  this.value=o;
- });
- function build(){
-  var type=val('mt')||'не указан',h=val('mh')||'@не указано',c=val('cm')||'не указан';
-  var lines=['<!НАЖМИТЕ ОТПРАВИТЬ, ЕСЛИ ДАННЫЕ ВЕРНЫ>','Имя: '+val('fn'),'Фамилия: '+val('ln'),'Номер телефона: '+val('ph'),'Email: '+val('em'),'Мессенджер: '+type+' ('+h+')','Комментарий: '+c];
-  return lines.join('\r\n');
- }
- function bad(id,on){$('#'+id).setAttribute('aria-invalid',on?'true':'false')}
+  function bad(id,on){$('#'+id).setAttribute('aria-invalid',on?'true':'false')}
  var send=$('#fbSend');
- function mailHref(){return 'mailto:'+TO+'?subject='+encodeURIComponent('Заявка на обратную связь')+'&body='+encodeURIComponent(build())}
  function validate(){
-  var first=null,checks={fn:val('fn').length>0,ln:val('ln').length>0,ph:val('ph').replace(/\D/g,'').length>=10,em:/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('em'))};
+  var first=null,checks={fn:val('fn').length>0,em:/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('em'))};
   Object.keys(checks).forEach(function(k){bad(k,!checks[k]);if(!checks[k]&&!first)first=k});
   fbMsg.classList.toggle('err',!!first);
-  if(first){fbMsg.textContent='Проверьте выделенные поля: имя, фамилия, телефон (не менее 10 цифр) и корректный email обязательны.';$('#'+first).focus();return false}
+  if(first){fbMsg.textContent='Проверьте выделенные поля: имя и корректный email обязательны.';$('#'+first).focus();return false}
   return true;
  }
- function refresh(){send.setAttribute('href',mailHref());$('#fbText').value=build()}
- fb.addEventListener('input',refresh);fb.addEventListener('change',refresh);refresh();
- send.addEventListener('click',function(e){
-  if(!validate()){e.preventDefault();return}
-  refresh();$('#fbCopy').style.display='block';
-  fbMsg.textContent='Открываем почтовую программу. Проверьте письмо и нажмите «Отправить».';
+ function fail(){fbMsg.classList.add('err');fbMsg.innerHTML='Не удалось отправить заявку. Попробуйте ещё раз или напишите нам на <a href="mailto:'+TO+'" style="text-decoration:underline">'+TO+'</a>.'}
+ fb.addEventListener('submit',function(e){
+  e.preventDefault();
+  if(!validate())return;
+  if(fb.elements._honey&&fb.elements._honey.value)return;
+  var data={'Имя':val('fn'),'email':val('em'),'Комментарий':val('cm')||'не указан','_subject':'Заявка на обратную связь — ООО «Иван Калита»','_template':'table','_captcha':'false'};
+  send.disabled=true;send.textContent='Отправляем…';fbMsg.classList.remove('err');fbMsg.textContent='Отправляем заявку…';
+  fetch('https://formsubmit.co/ajax/'+TO,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)})
+   .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})
+   .then(function(x){
+    if(x.ok&&String(x.j.success)!=='false'){fb.reset();fbMsg.classList.remove('err');fbMsg.textContent='Спасибо! Заявка отправлена, мы свяжемся с вами.';send.textContent='Отправлено ✓'}
+    else{fail();send.disabled=false;send.textContent='Отправить заявку'}
+   })
+   .catch(function(){fail();send.disabled=false;send.textContent='Отправить заявку'});
  });
- fb.addEventListener('submit',function(e){e.preventDefault();send.click()});
- ['fn','ln','ph','em'].forEach(function(id){$('#'+id).addEventListener('input',function(){bad(id,false)})});
- $('#fbCopyBtn').addEventListener('click',function(){
-  var t=$('#fbText');t.select();
-  try{navigator.clipboard?navigator.clipboard.writeText(t.value):document.execCommand('copy');this.textContent='Скопировано'}catch(x){document.execCommand('copy')}
- });
+ ['fn','em'].forEach(function(id){$('#'+id).addEventListener('input',function(){bad(id,false)})});
 
  // Reveal
  var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('v');io.unobserve(x.target)}})},{threshold:.1});
@@ -532,3 +511,4 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
 </script>
 </body>
 </html>
+
