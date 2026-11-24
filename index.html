@@ -392,13 +392,13 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
 <section id="feedback" class="wrap" data-nav="feedback">
  <div class="head rv"><div class="kicker">06 · Обратная связь</div><h2>Оставьте заявку</h2><p class="sub">Заполните форму — заявка автоматически уйдёт на нашу почту, и мы свяжемся с вами.</p></div>
  <form class="fb card rv" id="fb" novalidate>
-  <input type="text" name="_honey" id="fbHoney" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+  <input type="text" name="hp_website" id="fbHoney" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
   <div class="fb-grid">
    <div class="field full"><label for="fn">Имя <i>*</i></label><input id="fn" name="name" type="text" autocomplete="given-name" maxlength="100"></div>
    <div class="field full"><label for="em">Email <i>*</i></label><input id="em" name="email" type="email" autocomplete="email" placeholder="name@example.com" maxlength="254"></div>
    <div class="field full"><label for="cm">Комментарий <em>(необязательно)</em></label><textarea id="cm" name="message" maxlength="2000"></textarea></div>
   </div>
-  <div class="fb-ts"><div class="cf-turnstile" id="fbTurnstile" data-sitekey="0x4AAAAAAGQgAI2Iv7idcEIE" data-theme="auto" data-action="contact" data-language="ru" data-callback="onTsOk" data-expired-callback="onTsExpired" data-error-callback="onTsError"></div></div>
+  <div class="fb-ts"><div id="fbTurnstile"></div></div>
   <div class="fb-bottom"><button class="btn primary" id="fbSend" type="submit">Отправить заявку</button><div class="fb-msg" id="fbMsg" role="status" aria-live="polite">Обязательные поля отмечены *.</div></div>
  </form>
 </section>
@@ -435,46 +435,50 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
 </footer>
 
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script>
 (function(){
  var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
  var fmt=function(n){return new Intl.NumberFormat('ru-RU').format(n).replace(/\u00a0|\u202f/g,' ')};
 
  // Feedback form -> Cloudflare Worker (Turnstile проверяется на стороне Worker)
- var WORKER_URL='https://ivankalita.yurashiry.workers.dev/';
- var fb=$('#fb'),fbMsg=$('#fbMsg'),send=$('#fbSend'),tsToken='',busy=false;
+ var WORKER_URL='https://ivankalita.yurashiry.workers.dev/',SITE_KEY='0x4AAAAAAGQgAI2Iv7idcEIE';
+ var fb=$('#fb'),fbMsg=$('#fbMsg'),send=$('#fbSend'),tsToken='',tsId=null,busy=false;
  var val=function(id){return $('#'+id).value.trim()};
  function bad(id,on){$('#'+id).setAttribute('aria-invalid',on?'true':'false')}
- window.onTsOk=function(t){tsToken=t};
- window.onTsExpired=function(){tsToken=''};
- window.onTsError=function(){tsToken=''};
- function resetTs(){tsToken='';try{if(window.turnstile)window.turnstile.reset('#fbTurnstile')}catch(x){}}
  function say(text,kind){fbMsg.className='fb-msg'+(kind?' '+kind:'');fbMsg.textContent=text}
+ // Turnstile: явная отрисовка после загрузки api.js
+ window.onTurnstileLoad=function(){
+  try{
+   tsId=window.turnstile.render('#fbTurnstile',{sitekey:SITE_KEY,theme:'auto',action:'contact',language:'ru',
+    callback:function(t){tsToken=t},
+    'expired-callback':function(){tsToken=''},
+    'error-callback':function(){tsToken='';say('Не удалось загрузить проверку безопасности. Обновите страницу и попробуйте ещё раз.','err')}});
+  }catch(x){console.error('Turnstile render error',x)}
+ };
+ function resetTs(){tsToken='';try{if(window.turnstile&&tsId!==null)window.turnstile.reset(tsId)}catch(x){}}
  function validate(){
   var first=null,checks={fn:val('fn').length>0,em:/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val('em'))};
   Object.keys(checks).forEach(function(k){bad(k,!checks[k]);if(!checks[k]&&!first)first=k});
   if(first){say('Проверьте выделенные поля: имя и корректный email обязательны.','err');$('#'+first).focus();return false}
   return true;
  }
- var ERR={captcha:'Проверка безопасности не пройдена. Попробуйте ещё раз.',invalid:'Проверьте данные формы и попробуйте ещё раз.',rate:'Слишком частые отправки. Подождите минуту и попробуйте снова.'};
+ var ERR={captcha:'Проверка безопасности не пройдена. Попробуйте ещё раз.',invalid:'Проверьте данные формы и попробуйте ещё раз.',rate:'Слишком частые отправки. Подождите минуту и попробуйте снова.',forbidden:'Отправка с этого адреса сайта не разрешена.',server:'Сервис временно недоступен. Попробуйте позже.'};
  function done(){busy=false;send.disabled=false;send.textContent='Отправить заявку'}
  fb.addEventListener('submit',function(e){
   e.preventDefault();
   if(busy)return;
   if(!validate())return;
-  if(/^PLACEHOLDER_/.test(WORKER_URL)||/^PLACEHOLDER_/.test($('#fbTurnstile').getAttribute('data-sitekey'))){say('Форма ещё не настроена. Напишите нам на asiya_shir@mail.ru.','err');return}
   if(!tsToken){say('Дождитесь завершения проверки безопасности и повторите отправку.','err');return}
   busy=true;send.disabled=true;send.textContent='Отправляем…';say('Отправляем заявку…');
-  var ctrl=new AbortController(),timer=setTimeout(function(){ctrl.abort()},15000);
+  var ctrl=new AbortController(),timer=setTimeout(function(){ctrl.abort()},20000);
   var payload={name:val('fn'),email:val('em'),title:'Заявка на обратную связь',message:val('cm'),_honey:$('#fbHoney').value,token:tsToken};
   fetch(WORKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:ctrl.signal})
    .then(function(r){return r.json().catch(function(){return{}}).then(function(j){return{status:r.status,j:j}})})
    .then(function(x){
     if(x.j&&x.j.ok===true){fb.reset();say('Спасибо! Заявка отправлена, мы свяжемся с вами.','ok');send.textContent='Отправлено';setTimeout(done,4000)}
-    else{say(ERR[x.j&&x.j.error]||'Не удалось отправить заявку. Попробуйте позже или напишите нам на asiya_shir@mail.ru.','err');done()}
+    else{console.warn('Form: ответ Worker',x.status,x.j);say(ERR[x.j&&x.j.error]||'Не удалось отправить заявку. Попробуйте позже.','err');done()}
    })
-   .catch(function(){say('Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз.','err');done()})
+   .catch(function(err){console.error('Form: запрос не выполнен (сеть/CORS/таймаут)',err);say('Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз.','err');done()})
    .then(function(){clearTimeout(timer);resetTs()});
  });
  ['fn','em'].forEach(function(id){$('#'+id).addEventListener('input',function(){bad(id,false)})});
@@ -524,5 +528,7 @@ footer{padding:30px 0 50px;color:#8195a4;font-size:12px;line-height:1.7}
  calc();
 })();
 </script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit" async defer></script>
 </body>
 </html>
+
